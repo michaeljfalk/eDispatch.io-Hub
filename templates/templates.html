@@ -1,0 +1,72 @@
+<template name="header">
+    <div class="header">
+        <span>eDispatch.io</span>
+    </div>
+</template>
+
+<template name="threadHeader">
+    <div class="header thread animated slideInDown">
+
+        <div id="headerTitle">
+            <div id="back">
+                <i class="fa fa-chevron-left" aria-hidden="true"></i>
+            </div>
+            {{threadName}}
+        </div>
+
+    </div>
+</template>
+
+<template name="footer">
+    <div id="footer">
+        <i class="connectStatus fa {{connectedStatus}}"></i>
+    </div>
+</template>
+
+<template name="deviceInfo">
+    <p>Platform: <i id="device-platform"></i></p>
+    <p>Version: <i id="device-version"></i></p>
+    <p>Cordova: <i id="device-cordova"></i></p>
+    <p>Model: <i id="device-model"></i></p>
+    <p>UUID: <i id="device-uuid"></i></p>
+</template>
+
+<template name="smsMsgsTemplate">
+    <div id="messageBox">
+        {{#each uniqueUser}}
+            <div id="{{msgSafeID this}}" data="{{this}}" class="msgInstance {{isInProgress this}}">
+                <div class="typeStatus">
+                    <i class="fa {{getLatestMsgType this}} {{isRead this}}" aria-hidden="true"></i>
+                </div>
+                <p class="dateTime">{{formatMsgDate this}}</p>
+                <p class="whoFrom">{{whoFrom this}}</p>
+                <p class="msgPreview">{{#emojione}}{{msgPreview this}}{{/emojione}}</p>
+            </div>
+        {{/each}}
+    </div>
+</template>
+
+<template name="messageThread">
+    {{watcher}}
+    <div id="messageThreadPage" class="animated slideInRight">
+        <div id="messageThreadBox">
+            {{#each msgDate this}}
+                {{setNewDate this}}
+                {{#if checkDate this}}
+                    <div class="dateBreak no_bubble">
+                        {{formatMsgDate this}}
+                    </div>
+                {{/if}}
+                {{#each twilMsg this}}
+                    {{markAsRead this}}
+                    <div id="{{_id}}" class="animated {{whichDirection this}} {{bubbleClass this}}">
+                        <p class="msgTime"><strong class="msgStatus capitalize">{{msgStatus this}}</strong> @ {{formatedTime this}}</p>
+                        {{#emojione}}<p class="wordWrap">{{body}}</p>{{/emojione}}
+                    </div>
+                {{/each}}
+            {{/each}}
+        </div>
+        <textarea id="messageText" autocomplete="on" spellcheck="true" class="dispatch_entry" name="messageText" placeholder="Send a message..."></textarea>
+        <!--<i id="muteOn" class="fa {{setSMSSound}}" title="Click to toggle New Message Notification"></i>-->
+    </div>
+</template>

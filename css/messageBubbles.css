@@ -1,0 +1,124 @@
+/*Message bubbles*/
+.messageDate {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    border: 1px solid red;
+    z-index: 1;
+    min-height: 38px;
+}
+
+.bubbleWrap {
+    float: right;
+    width: 100%;
+}
+
+.dateBreak.no_bubble {
+    position: relative;
+    float: right;
+    width: 100%;
+    padding: 5px;
+    white-space: normal;
+    margin: 0 auto;
+    text-align: center;
+    font-weight: bold;
+    height: 40px;
+}
+
+.left_bubble
+{
+    position: relative;
+    float: right;
+    min-width: 50%;
+    max-width: 95%;
+    min-height: 38px;
+    height: auto;
+    padding: 5px;
+    background: var(--pistachio_green);
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    border: #7F7F7F solid 3px;
+    white-space: normal;
+    margin: 5px 10px 5px 0;
+}
+
+.left_bubble:after
+{
+    content: '';
+    position: absolute;
+    border-style: solid;
+    border-width: 8px 0 8px 4px;
+    border-color: transparent var(--pistachio_green);
+    display: block;
+    width: 0;
+    z-index: 1;
+    margin-top: -8px;
+    right: -4px;
+    top: 50%;
+}
+
+.left_bubble:before
+{
+    content: '';
+    position: absolute;
+    border-style: solid;
+    border-width: 10px 0 10px 6px;
+    border-color: transparent #7F7F7F;
+    display: block;
+    width: 0;
+    z-index: 0;
+    margin-top: -10px;
+    right: -9px;
+    top: 50%;
+}
+
+/*Right Bubble*/
+.right_bubble
+{
+    float: left;
+    position: relative;
+    min-width: 50%;
+    max-width: 90%;
+    min-height: 38px;
+    height: auto;
+    padding: 5px;
+    background: #f5f4f5;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    border: #7F7F7F solid 3px;
+    white-space: normal;
+    margin: 5px 0 5px 10px;
+}
+
+.right_bubble:after
+{
+    content: '';
+    position: absolute;
+    border-style: solid;
+    border-width: 8px 4px 8px 0;
+    border-color: transparent #f5f4f5;
+    display: block;
+    width: 0;
+    z-index: 1;
+    margin-top: -8px;
+    left: -4px;
+    top: 50%;
+}
+
+.right_bubble:before
+{
+    content: '';
+    position: absolute;
+    border-style: solid;
+    border-width: 10px 6px 10px 0;
+    border-color: transparent #7F7F7F;
+    display: block;
+    width: 0;
+    z-index: 0;
+    margin-top: -10px;
+    left: -9px;
+    top: 50%;
+}

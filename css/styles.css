@@ -1,0 +1,242 @@
+:root {
+    /*Variables*/
+    --top_bar_height: 41;
+
+    /*Colour variables*/
+    --pistachio_green: #93c572;
+    --dispatchio_blue: #3b6390;
+    --dispatchio_blue_hover: #67b0ff;
+    --dispatchio_sky_blue: #a3ccff;
+    --dispatchio_window_topper: #4594ec;
+}
+
+/*Elements*/
+* {
+    text-shadow: 0 0 0;
+}
+
+html {
+
+}
+
+body {
+    font-family: Roboto, Noto, Helvetica, Arial, sans-serif;
+
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Chrome/Safari/Opera */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently not supported by any browser */
+
+    font-size: 15px;
+
+    text-shadow: 0 0 0;
+}
+
+/*ID's*/
+#back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    line-height: 60px;
+    text-align: left;
+    vertical-align: middle;
+    padding: 0 0 0 5px;
+    font-size: 30px;
+    width: 100vw;
+    display: inline-block;
+}
+
+#headerTitle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 60px;
+    display: inline-block;
+}
+
+#footer {
+    position: absolute;
+    bottom: 0;
+    height: 30px;
+    width: 100vw;
+
+    background-color: var(--pistachio_green);
+    border-top: 1px solid darkgrey;
+
+    text-align: center;
+    vertical-align: middle;
+    line-height: 30px;
+
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+}
+
+#messageBox {
+    position: relative;
+    top: 30px;
+    height: calc(100vh - 90px);
+    width: 100vw;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 30px;
+    background-color: #fff8eb;
+
+    z-index: 999;
+}
+
+#messageThreadPage {
+    position: relative;
+    top: 60px;
+    height: calc(100vh - 90px);
+    width: 100vw;
+    overflow-x: hidden;
+    /*overflow-y: auto;*/
+    /*-webkit-overflow-scrolling: touch;*/
+    padding-bottom: 30px;
+    background-color: #fff8eb;
+
+    z-index: 1000;
+}
+
+#messageThreadBox {
+    position: relative;
+    top: 1px;
+    height: calc(100vh - 140px);
+    width: 100vw;
+    overflow-x: hidden;
+    padding-bottom: 30px;
+    background-color: #fff8eb;
+
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+}
+
+#messageText {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    background: none;
+    box-shadow: none;
+    display: block;
+    padding: 3px 8px 3px;
+    margin: 0;
+    width: 100%;
+    height: 28px;
+    color: #333;
+    font-size: 16px;
+    line-height: 22px;
+    font-family: inherit;
+    resize: none;
+    -webkit-box-flex: 1;
+    -webkit-flex-shrink: 1;
+    -ms-flex: 0 1 auto;
+    flex-shrink: 1;
+
+}
+
+/*Classes*/
+.header {
+    position: fixed;
+    top: 0;
+    height: 30px;
+    width: 100vw;
+
+    background-color: var(--pistachio_green);
+    border-bottom: 1px solid darkgrey;
+
+    text-align: center;
+    vertical-align: middle;
+    line-height: 30px;
+}
+
+.header.thread {
+    height: 60px;
+}
+
+.connectStatus {
+    position: relative;
+    float: left;
+    top: 7px;
+    left: 10px;
+}
+
+.msgInstance {
+    border: 1px solid #fff8eb;
+    border-bottom: 1px solid darkgrey;
+    height: 60px;
+    width: 100vw;
+    padding: 0 0 0 10px;
+}
+
+.msgInstance:active {
+    background-color: #6d6d6d;
+}
+
+.dateTime {
+    position: relative;
+    right: 20px;
+    top: -10px;
+    float: right;
+}
+
+.whoFrom {
+    font-weight: bold;
+    position: relative;
+    top: -10px;
+}
+
+.typeStatus {
+    display:inline-block;
+    font-size: 30px;
+    line-height: 40px;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    vertical-align: top;
+    position: relative;
+    float: left;
+    left: -5px;
+    top: -5px;
+}
+
+.unread {
+    color: #4594ec;
+}
+
+.msgPreview {
+    position: relative;
+    top: -15px;
+    width: 95vw;
+    height: 30px;
+    font-size: 12px;
+    opacity: 0.75;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.msgTime {
+    font-size: 10px;
+    line-height: 5px;
+}
+
+.msgStatus.capitalize {
+    text-transform: capitalize;
+}
+
+.wordWrap {
+    white-space: pre-wrap;      /* CSS3 */
+}

@@ -1,0 +1,8 @@
+<plugin name="cordova-plugin-mauron85-background-geolocation" spec="^2.2.0">
+    <variable name="ALWAYS_USAGE_DESCRIPTION" value="This app requires background location enabled." />
+    <preference name="StatusBarOverlaysWebView" value="false" />
+    <preference name="StatusBarBackgroundColor" value="#93c572" />
+    <preference name="BackupWebStorage" value="local" />
+</plugin>
+
+
