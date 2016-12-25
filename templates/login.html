@@ -1,0 +1,20 @@
+<template name="login">
+    <div id="loginBox">
+        <div id="loginInner">
+            <div class="input-group margin-bottom-sm">
+                <span class="input-group-addon"><i class="fa fa-phone fa-fw"></i></span>
+                <input class="form-control phone_entry" id="login_name" type="tel" name="login_name" placeholder="Mobile Number">
+            </div>
+            <div class="input-group margin-bottom-sm">
+                <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
+                <input class="form-control" id="password_entry" type="password" name="password_entry" placeholder="Password">
+            </div>
+            <p><a id="not_regi" href="#">Not Registered?</a></p>
+            <div id="loginBottom">
+                <!--{{>stdButton data=this classes='exit_window' id='exit_login_window' text='Cancel'}}-->
+                {{>stdButton data=this classes='' id='login-button' text='Login'}}
+            </div>
+        </div>
+    </div>
+    {{> footer}}
+</template>
