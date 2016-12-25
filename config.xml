@@ -3,6 +3,7 @@
     <preference name="StatusBarOverlaysWebView" value="false" />
     <preference name="StatusBarBackgroundColor" value="#93c572" />
     <preference name="BackupWebStorage" value="local" />
+    <preference name="CONTACTS_USAGE_DESCRIPTION" value="eDispatch.io would like to access your contacts." />
 </plugin>
 
 

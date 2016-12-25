@@ -1,13 +1,11 @@
 :root {
-    /*Variables*/
-    --top_bar_height: 41;
-
     /*Colour variables*/
     --pistachio_green: #93c572;
     --dispatchio_blue: #3b6390;
     --dispatchio_blue_hover: #67b0ff;
     --dispatchio_sky_blue: #a3ccff;
     --dispatchio_window_topper: #4594ec;
+    --mobile_background_colour: #fff8eb;
 }
 
 /*Elements*/
@@ -16,7 +14,7 @@
 }
 
 html {
-
+    background-color: var(--mobile_background_colour);
 }
 
 body {
@@ -31,25 +29,91 @@ body {
     font-size: 15px;
 
     text-shadow: 0 0 0;
+
+    background-color: var(--mobile_background_colour);
 }
 
 /*ID's*/
 #back {
     position: absolute;
-    top: 0;
-    left: 0;
+    top: -3px;
+    left: 10px;
     line-height: 60px;
     text-align: left;
     vertical-align: middle;
-    padding: 0 0 0 5px;
+    padding: 5px;
     font-size: 30px;
-    width: 100vw;
+    width: auto;
     display: inline-block;
+    color: var(--dispatchio_window_topper);
+}
+
+#back:active {
+    color: #6d6d6d;
+}
+
+#plus {
+    position: relative;
+    float: right;
+    top: -32px;
+    left: -10px;
+    line-height: 60px;
+    text-align: left;
+    vertical-align: middle;
+    padding: 5px;
+    font-size: 30px;
+    width: auto;
+    display: inline-block;
+    color: var(--dispatchio_window_topper);
+}
+
+#plus:active {
+    color: #6d6d6d;
+}
+
+#contactSelecter {
+    position: relative;
+    width: 60vw;
+    float: left;
+    margin-left: 60px;
+}
+
+#numberChooser {
+    position: relative;
+    height: 100px;
+    width: 80vw;
+    border: 1px solid black;
+    margin: 0 auto;
+    background-color: #ffffff;
+}
+
+#newMsg {
+    position: absolute;
+    top: -3px;
+    right: 10px;
+    float: right;
+    line-height: 60px;
+    text-align: left;
+    vertical-align: middle;
+    padding: 5px;
+    font-size: 30px;
+    width: auto;
+    display: inline-block;
+    color: var(--dispatchio_window_topper);
+    z-index: 100;
+}
+
+#newMsg.hidden {
+    display: none;
+}
+
+#newMsg:active {
+    color: #6d6d6d;
 }
 
 #headerTitle {
     position: absolute;
-    top: 0;
+    top: -15px;
     left: 0;
     width: 100vw;
     font-size: 20px;
@@ -58,6 +122,20 @@ body {
     vertical-align: middle;
     line-height: 60px;
     display: inline-block;
+}
+
+#userName {
+    position: relative;
+    top: 19px;
+    font-size: 12px;
+    z-index: 99;
+}
+
+#companyName {
+    position: relative;
+    top: 3px;
+    font-size: 12px;
+    z-index: 99;
 }
 
 #footer {
@@ -72,50 +150,74 @@ body {
     text-align: center;
     vertical-align: middle;
     line-height: 30px;
+}
 
-    overflow-y: scroll;
+#loginBox {
+    position: relative;
+    top: 60px;
+    width: 100vw;
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
+    padding-bottom: 30px;
+    background-color: var(--mobile_background_colour);
+    text-align: center;
+    vertical-align: middle;
+
+}
+
+#loginInner {
+    position: relative;
+    width: 90vw;
+    top: 25vh;
+    text-align: center;
+    margin: auto;
 }
 
 #messageBox {
     position: relative;
-    top: 30px;
-    height: calc(100vh - 90px);
+    top: 60px;
+    height: calc(100vh - 60px);
     width: 100vw;
     overflow-y: auto;
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
     padding-bottom: 30px;
-    background-color: #fff8eb;
-
-    z-index: 999;
+    background-color: var(--mobile_background_colour);
 }
 
 #messageThreadPage {
     position: relative;
     top: 60px;
-    height: calc(100vh - 90px);
-    width: 100vw;
-    overflow-x: hidden;
-    /*overflow-y: auto;*/
-    /*-webkit-overflow-scrolling: touch;*/
+    height: calc(100vh - 60px);
+    width: auto;
+    overflow: hidden;
     padding-bottom: 30px;
-    background-color: #fff8eb;
-
-    z-index: 1000;
+    background-color: var(--mobile_background_colour);
 }
 
 #messageThreadBox {
     position: relative;
     top: 1px;
-    height: calc(100vh - 140px);
+    height: calc(100vh - 100px);
     width: 100vw;
     overflow-x: hidden;
     padding-bottom: 30px;
-    background-color: #fff8eb;
+    background-color: var(--mobile_background_colour);
 
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
+}
+
+#textAreaWrap {
+    position: fixed;
+    bottom: 0;
+    height: auto;
+    width: 100vw;
+    background-color: var(--mobile_background_colour);
+
+    border-top: 1px solid darkgrey;
 }
 
 #messageText {
@@ -130,10 +232,10 @@ body {
     border-radius: 10px;
     background: none;
     box-shadow: none;
-    display: block;
+    display: inline-block;
     padding: 3px 8px 3px;
-    margin: 0;
-    width: 100%;
+    margin: 5px;
+    width: 75vw;
     height: 28px;
     color: #333;
     font-size: 16px;
@@ -144,14 +246,54 @@ body {
     -webkit-flex-shrink: 1;
     -ms-flex: 0 1 auto;
     flex-shrink: 1;
+    position: relative;
+    float: left;
+}
 
+#messageText:focus {
+    background-color: #fff;
+}
+
+#sndMsg {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    background-color: var(--pistachio_green);
+    box-shadow: none;
+    display: inline-block;
+    /*padding: 3px 8px 3px;*/
+    margin: 5px;
+    width: 15vw;
+    height: 28px;
+    color: #ffffff;
+    font-size: 16px;
+    font-family: inherit;
+    resize: none;
+    -webkit-box-flex: 1;
+    -webkit-flex-shrink: 1;
+    -ms-flex: 0 1 auto;
+    flex-shrink: 1;
+    position: absolute;
+    bottom: 0;
+    right: 5px;
+    float: right;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 28px;
+    z-index: 10000;
 }
 
 /*Classes*/
 .header {
     position: fixed;
     top: 0;
-    height: 30px;
+    height: 60px;
     width: 100vw;
 
     background-color: var(--pistachio_green);
@@ -174,7 +316,7 @@ body {
 }
 
 .msgInstance {
-    border: 1px solid #fff8eb;
+    border: 1px solid var(--mobile_background_colour);
     border-bottom: 1px solid darkgrey;
     height: 60px;
     width: 100vw;
@@ -185,17 +327,22 @@ body {
     background-color: #6d6d6d;
 }
 
+.numberInstance {
+    border-bottom: 1px solid lightgray;
+    padding-left: 5px;
+}
+
 .dateTime {
     position: relative;
     right: 20px;
-    top: -10px;
+    top: 5px;
     float: right;
 }
 
 .whoFrom {
     font-weight: bold;
     position: relative;
-    top: -10px;
+    top: 5px;
 }
 
 .typeStatus {
@@ -209,7 +356,7 @@ body {
     position: relative;
     float: left;
     left: -5px;
-    top: -5px;
+    top: 0;
 }
 
 .unread {
@@ -218,10 +365,10 @@ body {
 
 .msgPreview {
     position: relative;
-    top: -15px;
+    top: -5px;
     width: 95vw;
     height: 30px;
-    font-size: 12px;
+    font-size: 14px;
     opacity: 0.75;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -229,14 +376,53 @@ body {
 }
 
 .msgTime {
+    position: relative;
     font-size: 10px;
-    line-height: 5px;
+    line-height: 10px;
+    width: 100vw;
+    display: none;
 }
 
-.msgStatus.capitalize {
+.msgTime.floatLeft {
+    text-align: left;
+    padding: 5px 0 0 10px;
+}
+
+.msgTime.floatRight {
+    text-align: right;
+    padding: 5px 10px 0 0;
+}
+
+.capitalize {
     text-transform: capitalize;
 }
 
 .wordWrap {
     white-space: pre-wrap;      /* CSS3 */
+    font-size: 16px;
+}
+
+.dispatchBtn {
+    width: 100px;
+    height: 35px;
+
+    color: white;
+
+    background-color: var(--dispatchio_blue);
+
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+
+    box-shadow: none;
+    border: none;
+}
+
+.dispatchBtn:active {
+    opacity: .75;
+
+    position: relative;
+    top: 1px;
+    left: 1px;
+    outline: 0;
 }

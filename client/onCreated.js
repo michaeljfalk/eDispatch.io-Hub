@@ -3,15 +3,9 @@
  */
 
 Template.smsMsgsTemplate.onCreated(function () {
-    this.subscribe("remote-messages", {
-        onReady: function() {
-            Session.set('remote-messagesReady', true);
-        }
-    });
+    this.subscribe('smsVoiceMessages');
 });
 
 Template.messageThread.onCreated(function() {
-    Session.set('msgDate', '1000-01-01');
-
     $('#header').addClass('threadOpen');
 });

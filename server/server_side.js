@@ -1,13 +1,7 @@
-Meteor.publish('remote-messages', function() {
-    return SmsVoiceMessages.find();
+Meteor.publish("smsVoiceMessages", function () {
+    return SmsVoiceMessages.find({ type: "sms", type: "call" });
 });
 
 Meteor.onConnection(function(connection) {
     console.log('Connection ID: '+connection.id);
-});
-
-Meteor.methods({
-    markAsRead: function(id) {
-        SmsVoiceMessages.update({_id: id}, {$set: {read: true}}, {upsert: false});
-    }
 });

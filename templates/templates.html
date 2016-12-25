@@ -1,19 +1,46 @@
+<template name="stdButton">
+    <button class="dispatchBtn {{this.classes}}" id="{{this.id}}">{{this.text}}</button>
+</template>
+
 <template name="header">
     <div class="header">
-        <span>eDispatch.io</span>
+        <div id="userName">{{currentlyLoggedIn 'user'}}</div>
+        <div id="companyName">{{currentlyLoggedIn 'company'}}</div>
+        <div id="headerTitle">
+            <div id="newMsg">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+            </div>
+            {{title}}
+        </div>
     </div>
 </template>
 
 <template name="threadHeader">
-    <div class="header thread animated slideInDown">
-
-        <div id="headerTitle">
+    <div class="header thread">
+        {{#if hasNumber}}
+            <div id="headerTitle">
+                <div id="back">
+                    <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                </div>
+                {{threadName}}
+            </div>
+        {{else}}
+            New Message
             <div id="back">
                 <i class="fa fa-chevron-left" aria-hidden="true"></i>
             </div>
-            {{threadName}}
-        </div>
-
+            <div id="contactSelect">
+                <div id="contactSelecter">
+                    <div class="input-group margin-bottom-sm">
+                        <span class="input-group-addon"><i class="fa fa-phone fa-fw"></i></span>
+                        <input class="form-control phone_entry" id="contact" type="tel" name="contact" placeholder="Mobile Number">
+                    </div>
+                </div>
+            </div>
+            <div id="plus">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+            </div>
+        {{/if}}
     </div>
 </template>
 
@@ -38,34 +65,49 @@
                 <div class="typeStatus">
                     <i class="fa {{getLatestMsgType this}} {{isRead this}}" aria-hidden="true"></i>
                 </div>
-                <p class="dateTime">{{formatMsgDate this}}</p>
+                <p class="dateTime">{{formatMsgDate this 'time'}}</p>
                 <p class="whoFrom">{{whoFrom this}}</p>
-                <p class="msgPreview">{{#emojione}}{{msgPreview this}}{{/emojione}}</p>
+                <p class="msgPreview">{{msgPreview this}}</p>
             </div>
         {{/each}}
     </div>
+    {{>footer}}
 </template>
 
 <template name="messageThread">
     {{watcher}}
-    <div id="messageThreadPage" class="animated slideInRight">
+
+    {{#if chooseNumber}}
+        <div id="numberChooser">
+            {{#each chosenNumber}}
+                <div id="{{makeID value}}" class="numberInstance">
+                    <span class="capitalize">{{type}}</span>: {{whoFrom value}}
+                </div>
+            {{/each}}
+        </div>
+    {{/if}}
+
+    <div id="messageThreadPage">
         <div id="messageThreadBox">
             {{#each msgDate this}}
                 {{setNewDate this}}
                 {{#if checkDate this}}
                     <div class="dateBreak no_bubble">
-                        {{formatMsgDate this}}
+                        {{formatMsgDate this 'date'}}
                     </div>
                 {{/if}}
                 {{#each twilMsg this}}
-                    {{markAsRead this}}
-                    <div id="{{_id}}" class="animated {{whichDirection this}} {{bubbleClass this}}">
-                        <p class="msgTime"><strong class="msgStatus capitalize">{{msgStatus this}}</strong> @ {{formatedTime this}}</p>
-                        {{#emojione}}<p class="wordWrap">{{body}}</p>{{/emojione}}
+                    <div class="msgTime {{floatSide this}}"><strong class="msgStatus capitalize">{{msgStatus this}}</strong> @ {{formatedTime this}}</div>
+                    <div id="{{_id}}" class="msgBubble animated {{whichDirection this}} {{bubbleClass this}}">
+                        <p class="wordWrap">{{body}}</p>
                     </div>
+                    <div class="clear"></div>
                 {{/each}}
             {{/each}}
         </div>
-        <textarea id="messageText" autocomplete="on" spellcheck="true" class="dispatch_entry" name="messageText" placeholder="Send a message..."></textarea>
+        <div id="textAreaWrap">
+            <textarea id="messageText" autocomplete="on" spellcheck="true" class="dispatch_entry" name="messageText" placeholder="Send a message..."></textarea>
+        </div>
+        <div id="sndMsg">Send</div>
     </div>
 </template>

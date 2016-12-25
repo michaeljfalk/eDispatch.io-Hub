@@ -1,6 +1,11 @@
 /**
  * Created by michaelfalk on 2016-12-19.
  */
+updateScroll = function (){
+    var element = document.getElementById("messageThreadBox");
+    element.scrollTop = element.scrollHeight;
+};
+
 formattedDateTime = function(data, tor) {
     var formattedDate = moment(data).format('YYYY-MM-DD'),
         today = moment(new Date).format('YYYY-MM-DD'),
@@ -13,13 +18,21 @@ formattedDateTime = function(data, tor) {
 
     switch (formattedDate) {
         case today:
-            return moment(data).format('h:mm a');
+            if (tor === 'time') {
+                return moment(data).format('h:mm a');
+            }
+            if (tor === 'date') {
+                return 'Today';
+            }
+            if (tor === 'dateTime') {
+                return 'Today'+time;
+            }
             break;
         case yesterday:
             return 'Yesterday'+time;
             break;
         default:
-            return moment(formattedDate).format('dddd, MMMM D');
+            return moment(formattedDate).format('ddd, MMM D');
             break;
     }
 };
@@ -40,16 +53,48 @@ Template.body.helpers({
 Template.header.helpers({
     openThread : function() {
         return Session.get('openThread');
+    },
+    title : function() {
+        return 'eDispatch.io';
+    },
+    currentlyLoggedIn : function(rt) {
+        if (rt === 'company') {
+            return Session.get('companyName');
+        }
+        if (rt === 'user') {
+            return Session.get('userName');
+        }
     }
 });
 
 Template.threadHeader.helpers({
     threadName : function() {
         var number = Session.get('number');
-        if (phoneUtil.isValidNumber(number) === true) {
+        // if (phoneUtil.isValidNumber(number) === true) {
             return phoneUtil.format(number, 'National');
+        // } else {
+        //     return 'Unknown Number';
+        // }
+    },
+    hasNumber : function() {
+        return typeof Session.get('number') != 'undefined';
+    }
+});
+
+Template.registerHelper('whoFrom', function(doc) {
+    if (typeof doc != 'undefined') {
+        if (typeof doc.from != 'undefined') {
+            if (phoneUtil.isValidNumber(doc.from) === true) {
+                return phoneUtil.format(doc.from, 'National');
+            } else {
+                return 'Unknown Number';
+            }
         } else {
-            return 'Unknown Number';
+            // if (phoneUtil.isValidNumber(doc) === true) {
+                return phoneUtil.format(doc, 'National');
+            // } else {
+            //     return 'Unknown Number';
+            // }
         }
     }
 });
@@ -61,7 +106,7 @@ Template.smsMsgsTemplate.helpers({
                 distinctData,
                 uniqueDate;
 
-            data = SmsVoiceMessages.find({}, {sort: {isoDate: -1}}).fetch(); //TODO eventually make this only fetch messages pertaining to this user/company but for dev purposes fetch all for now
+            data = SmsVoiceMessages.find({type: 'sms'}, {sort: {isoDate: -1}}).fetch(); //TODO eventually make this only fetch messages pertaining to this user/company but for dev purposes fetch all for now
 
             distinctData = _.uniq(data, false, function (d) {
                 return d.from
@@ -82,28 +127,11 @@ Template.smsMsgsTemplate.helpers({
     msgSafeID : function(number) {
         return number.replace('+','');
     },
-    formatMsgDate : function(doc) {
+    formatMsgDate : function(doc, type) {
         var msg = getLatestMsg(doc),
             date_sent = msg.isoDate;
 
-        return formattedDateTime(date_sent, 'dateTime');
-    },
-    whoFrom : function(doc) {
-        if (typeof doc != 'undefined') {
-            if (typeof doc.from != 'undefined') {
-                if (phoneUtil.isValidNumber(doc.from) === true) {
-                    return phoneUtil.format(doc.from, 'National');
-                } else {
-                    return 'Unknown Number';
-                }
-            } else {
-                if (phoneUtil.isValidNumber(doc) === true) {
-                    return phoneUtil.format(doc, 'National');
-                } else {
-                    return 'Unknown Number';
-                }
-            }
-        }
+        return formattedDateTime(date_sent, type);
     },
     msgPreview : function(latest) {
         var data = getLatestMsg(latest);
@@ -112,7 +140,6 @@ Template.smsMsgsTemplate.helpers({
     isRead : function(doc) {
         var data = getLatestMsg(doc);
         if (!data.read) {
-            // widgetState.currently.unread++;
             return 'unread';
         }
     },
@@ -131,56 +158,30 @@ Template.smsMsgsTemplate.helpers({
 });
 
 Template.messageThread.helpers({
+    makeID : function(number) {
+        return number.replace(/\D/g,'');
+    },
+    chooseNumber : function() {
+        return Session.get('chooseANumber');
+    },
+    chosenNumber : function() {
+        var data =  Session.get('chosenContact');
+
+        return data.phoneNumbers;
+    },
     watcher : function() {
         var data = SmsVoiceMessages.find(); //TODO eventually make this only fetch messages pertaining to this company but for dev purposes fetch all for now
 
         data.observeChanges({
             added: function(id, fields) {
-                widgetState.currently.unread = 0;
-                var msgData = Session.get('msgExpanded'),
-                    msgOpen = msgData.open;
-
-                if (Session.equals('smsVoiceMessagesLoaded', true) && !msgOpen && Session.equals('playSound', true)) {
-                    $.playSound('sms-alert');
+                var scrollTimer = setInterval(timer, 250);
+                function timer() {
+                    var element = document.getElementById("messageThreadBox");
+                    element.scrollTop = element.scrollHeight;
+                    clearInterval(scrollTimer);
                 }
-
-                if (Session.equals('smsVoiceMessagesLoaded', true) && msgOpen && Session.equals('playSMSSound', true)) {
-                    var doc = SmsVoiceMessages.findOne({_id: id});
-
-                    if (doc.direction === 'inbound') {
-                        $.playSound('incoming');
-                    } else if (doc.direction === 'outbound-api') {
-                        $.playSound('outbound');
-                    }
-                }
-
-                var msgDiv = $('#messageThreadBox');
-
-                msgDiv.animate({scrollTop: msgDiv.prop("scrollHeight")}, 250);
-
-                if (!data)
-                    return;
-
-                data.forEach(function (doc) {
-                    if (!doc.read) {
-                        widgetState.currently.unread++;
-                    }
-                });
-                Session.set('unreadMsgs', widgetState.currently.unread);
-
-
             },
             changed: function(id, fields) {
-                widgetState.currently.unread = 0;
-                if (!data)
-                    return;
-
-                data.forEach(function (doc) {
-                    if (!doc.read) {
-                        widgetState.currently.unread++;
-                    }
-                });
-                Session.set('unreadMsgs', widgetState.currently.unread);
             }
         });
     },
@@ -194,13 +195,10 @@ Template.messageThread.helpers({
 
 
             if (typeof number != 'undefined') {
-                // var selector = { "from": msgData.data.from };
                 var selector = { "from": number, "type": "sms" };
 
-                // data = SmsVoiceMessages.find(selector, {fields: projection, sort: {isoDate: -1}, limit: 30}).fetch().reverse(); //TODO eventually make this only fetch messages pertaining to this company but for dev purposes fetch all for now
                 data = SmsVoiceMessages.find(selector, {fields: projection, sort: {sent_date: -1, sent_time: 1}, limit: 30}).fetch(); //TODO eventually make this only fetch messages pertaining to this company but for dev purposes fetch all for now
 
-                // return data;
                 distinctData = _.uniq(data, false, function (d) {
                     return d.sent_date;
                 });
@@ -225,8 +223,8 @@ Template.messageThread.helpers({
             return false;
         }
     },
-    formatMsgDate : function(date) {
-        return formattedDateTime(date);
+    formatMsgDate : function(date, type) {
+        return formattedDateTime(date, type);
     },
     twilMsg : function(doc) {
         var number = Session.get('number'),
@@ -241,15 +239,6 @@ Template.messageThread.helpers({
             return data;
         }
     },
-    markAsRead : function(doc) {
-        if (!doc.read) {
-            Meteor.call('markAsRead', doc._id, function(err) {
-                if (err) {
-                    console.log('Error marking message '+doc._id+' as "read".');
-                }
-            })
-        }
-    },
     whichDirection : function(doc) {
         if (doc.direction === 'inbound') {
             return "bounceInLeft";
@@ -260,10 +249,18 @@ Template.messageThread.helpers({
     },
     bubbleClass : function(doc) {
         if (doc.direction === 'inbound') {
-            return 'right_bubble';
+            return 'from-them';
         }
         if (doc.direction === 'outbound-api') {
-            return 'left_bubble';
+            return 'from-me';
+        }
+    },
+    floatSide : function(doc) {
+        if (doc.direction === 'inbound') {
+            return 'floatLeft';
+        }
+        if (doc.direction === 'outbound-api') {
+            return 'floatRight';
         }
     },
     msgStatus : function(doc) {
