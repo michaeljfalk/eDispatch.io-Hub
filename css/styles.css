@@ -55,7 +55,7 @@ body {
 #plus {
     position: relative;
     float: right;
-    top: -32px;
+    top: -43px;
     left: -10px;
     line-height: 60px;
     text-align: left;
@@ -71,11 +71,11 @@ body {
     color: #6d6d6d;
 }
 
-#contactSelecter {
+#contactSelect {
     position: relative;
     width: 60vw;
-    float: left;
-    margin-left: 60px;
+    top: 10px;
+    margin: auto;
 }
 
 #numberChooser {
@@ -89,7 +89,7 @@ body {
 
 #newMsg {
     position: absolute;
-    top: -3px;
+    top: 13px;
     right: 10px;
     float: right;
     line-height: 60px;

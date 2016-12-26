@@ -33,4 +33,12 @@ Meteor.startup(function () {
 
     //Hide the loading spinner
     $.mobile.loading().hide();
+
+    //Push Notifications
+    var credentials = {
+        accessKeyId: "edispatch-io",
+        secretAccessKey: "fakeSecret"
+    };
+
+    snsPush = new SNSPush(credentials,"arn");
 });

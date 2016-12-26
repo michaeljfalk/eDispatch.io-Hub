@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Mobile App.iml" filepath="$PROJECT_DIR$/.idea/Mobile App.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/eDispatch.io Hub.iml" filepath="$PROJECT_DIR$/.idea/eDispatch.io Hub.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/mobile_app.iml" filepath="$PROJECT_DIR$/.idea/mobile_app.iml" />
     </modules>
   </component>

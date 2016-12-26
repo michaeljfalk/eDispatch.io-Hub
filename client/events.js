@@ -50,13 +50,23 @@ Template.threadHeader.events({
         $('#newMsg').removeClass('hidden');
     },
     'tap #plus' : function() {
-        navigator.contacts.pickContact(function(contact) {
+        navigator.contacts.pickContact(function (contact) {
             Session.set('chosenContact', contact);
             Session.set('chooseANumber', true);
-         }, function(err) {
-             alert('Error: ' + err);
-         });
+        }, function (err) {
+            Session.set('number', undefined);
+            Session.set('whichHeader', 'header');
+            Session.set("whichPage", 'smsMsgsTemplate');
+        });
+    },
+    'blur #contact' : function(e) {
+        // if (e.which == 13) {
+            e.preventDefault();
+            Session.set('number', $('#contact').val());
 
+            Session.set('chosenContact', contact);
+            Session.set('chooseANumber', false);
+        // }
     }
 });
 

@@ -9,6 +9,9 @@
       <excludeFolder url="file://$MODULE_DIR$/.tmp" />
       <excludeFolder url="file://$MODULE_DIR$/temp" />
       <excludeFolder url="file://$MODULE_DIR$/tmp" />
+      <excludeFolder url="file://$MODULE_DIR$/../mobile_app/.tmp" />
+      <excludeFolder url="file://$MODULE_DIR$/../mobile_app/temp" />
+      <excludeFolder url="file://$MODULE_DIR$/../mobile_app/tmp" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
