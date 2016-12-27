@@ -26,6 +26,24 @@ function onDeviceReady() {
     window.addEventListener('keyboardDidShow', function () {
         updateScroll();
     });
+
+    // Push.Configure({
+    //     // android: {
+    //     //     senderID: 12341234,
+    //     //     alert: true,
+    //     //     badge: true,
+    //     //     sound: true,
+    //     //     vibrate: true,
+    //     //     clearNotifications: true
+    //     //     // icon: '',
+    //     //     // iconColor: ''
+    //     // },
+    //     ios: {
+    //         alert: true,
+    //         badge: true,
+    //         sound: true
+    //     }
+    // });
 }
 
 Meteor.startup(function () {
@@ -34,11 +52,11 @@ Meteor.startup(function () {
     //Hide the loading spinner
     $.mobile.loading().hide();
 
-    //Push Notifications
-    var credentials = {
-        accessKeyId: "edispatch-io",
-        secretAccessKey: "fakeSecret"
-    };
-
-    snsPush = new SNSPush(credentials,"arn");
+    // //Push Notifications
+    // var credentials = {
+    //     accessKeyId: "edispatch-io",
+    //     secretAccessKey: "fakeSecret"
+    // };
+    //
+    // snsPush = new SNSPush(credentials,"arn");
 });
