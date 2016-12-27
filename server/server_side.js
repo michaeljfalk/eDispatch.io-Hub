@@ -9,12 +9,12 @@ Meteor.onConnection(function(connection) {
 //         apn: {
 //             certData: Assets.getText('res/certs/pushCert.pem'),
 //             keyData: Assets.getText('res/certs/pushCert.pem'),
-//             passphrase: 'Dinner42@home',
+//             passphrase: 'xxxxxxxx',
 //             production: false
 //             // gateway: 'gateway.push.apple.com'
 //         },
 //         gcm: {
-//             apiKey: 'Dinner42@home'
+//             apiKey: 'xxxxxxxx'
 //         }
 //         // production: true,
 //         // 'sound' true,
